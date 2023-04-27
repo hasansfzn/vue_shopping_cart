@@ -15,15 +15,24 @@ const newItem = ref("");
 const priority = ref(false);
 
 const addItem = () => {
-  items.value.push({ label: newItem.value, id: items.value.length + 1 });
+  items.value.push({
+    label: newItem.value,
+    id: items.value.length + 1,
+    highPriority: priority.value,
+  });
   newItem.value = "";
+  priority.value = "";
 };
-
 const editing = ref(false);
 
 const doEdit = (e) => {
   editing.value = e;
   newItem.value = "";
+};
+
+const togglePerchase = (e) => {
+  //e.highPriority = !e.highPriority;
+  e.purchased = !e.purchased;
 };
 </script>
 
@@ -67,12 +76,13 @@ const doEdit = (e) => {
   <!-- {{ priority }} -->
   <ul>
     <li
-      v-for="({ id, label, purchased, highPriority }, index) in items"
-      :key="id"
+      v-for="(item, index) in items"
+      :key="item.id"
       class="static-class"
-      :class="[{ strikeout: purchased }, { priority: highPriority }]"
+      :class="[{ strikeout: item.purchased }, { priority: item.highPriority }]"
+      @click="togglePerchase(item)"
     >
-      {{ index + 1 }} => {{ label }}
+      {{ index + 1 }} => {{ item.label }}
     </li>
   </ul>
   <p v-if="!items.length">No items to show!</p>
