@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 // const msg = ref();
-const header = ref("Shopping Cart Application");
+const header = ref("Shopping List Application");
 
 const items = ref([
   { id: 1, label: "Nescafe 1 Pac", purchased: true, highPriority: false },
