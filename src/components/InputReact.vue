@@ -75,7 +75,7 @@ const togglePerchase = (e) => {
       Save Item
     </button>
   </form>
-  <!-- <span v-if="editing" class="span-text">{{ characterLength }} / 200</span> -->
+  <span v-if="editing" class="span-text">{{ characterLength }} / 200</span>
 
   <br />
   <!-- {{ priority }} -->
