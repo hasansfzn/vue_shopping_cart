@@ -15,10 +15,14 @@ const newItem = ref("");
 const priority = ref(false);
 
 const addItem = () => {
-  items.value.push({ label: newItem.value, id: items.value.length + 1 });
+  items.value.push({
+    label: newItem.value,
+    id: items.value.length + 1,
+    highPriority: priority.value,
+  });
   newItem.value = "";
+  priority.value = "";
 };
-
 const editing = ref(false);
 
 const doEdit = (e) => {
