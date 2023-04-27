@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 // const msg = ref();
-const header = ref("Shopping Cart Application");
+const header = ref("Shopping List Application");
 
 const items = ref([
   { id: 1, label: "Nescafe 1 Pac", purchased: true, highPriority: false },
@@ -14,12 +14,25 @@ const newItem = ref("");
 // const priority = ref("low");
 const priority = ref(false);
 
+const characterLength = computed(() => {
+  return newItem.value.length;
+});
+
 const addItem = () => {
-  items.value.push({
-    label: newItem.value,
-    id: items.value.length + 1,
-    highPriority: priority.value,
-  });
+  if (!priority.value) {
+    items.value.push({
+      label: newItem.value,
+      id: items.value.length + 1,
+      highPriority: priority.value,
+    });
+  } else {
+    items.value.unshift({
+      label: newItem.value,
+      id: items.value.length + 1,
+      highPriority: priority.value,
+    });
+  }
+
   newItem.value = "";
   priority.value = "";
 };
@@ -34,6 +47,10 @@ const togglePerchase = (e) => {
   //e.highPriority = !e.highPriority;
   e.purchased = !e.purchased;
 };
+
+const reversed_list = computed(() => {
+  return [...items.value].reverse();
+});
 </script>
 
 <template>
@@ -71,6 +88,7 @@ const togglePerchase = (e) => {
       Save Item
     </button>
   </form>
+  <span v-if="editing" class="span-text">{{ characterLength }} / 200</span>
 
   <br />
   <!-- {{ priority }} -->
@@ -91,5 +109,11 @@ const togglePerchase = (e) => {
 <style>
 .center {
   text-align: center;
+}
+
+.span-text {
+  display: block;
+  font-size: small;
+  color: green;
 }
 </style>
