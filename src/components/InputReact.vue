@@ -19,8 +19,14 @@ const characterLength = computed(() => {
 });
 
 const addItem = () => {
-  if (priority.value) {
+  if (!priority.value) {
     items.value.push({
+      label: newItem.value,
+      id: items.value.length + 1,
+      highPriority: priority.value,
+    });
+  } else {
+    items.value.unshift({
       label: newItem.value,
       id: items.value.length + 1,
       highPriority: priority.value,
