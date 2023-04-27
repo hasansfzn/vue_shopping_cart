@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 // const msg = ref();
 const header = ref("Shopping List Application");
@@ -13,6 +13,10 @@ const items = ref([
 const newItem = ref("");
 // const priority = ref("low");
 const priority = ref(false);
+
+const characterLength = computed(() => {
+  return newItem.value.length;
+});
 
 const addItem = () => {
   items.value.push({
@@ -71,6 +75,7 @@ const togglePerchase = (e) => {
       Save Item
     </button>
   </form>
+  <!-- <span v-if="editing" class="span-text">{{ characterLength }} / 200</span> -->
 
   <br />
   <!-- {{ priority }} -->
@@ -91,5 +96,11 @@ const togglePerchase = (e) => {
 <style>
 .center {
   text-align: center;
+}
+
+.span-text {
+  display: block;
+  font-size: small;
+  color: green;
 }
 </style>
